@@ -9,17 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ray.widget.viewpager.NoLimitViewPager;
+
+/**
+ * @author zyl
+ */
 public class MainActivity extends AppCompatActivity {
+
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final ViewPager viewPager = findViewById(R.id.viewpager);
+        final NoLimitViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
-                return 20;
+                return 13;
             }
 
             @Override
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
+                Log.d("raytest", "instantiateItem: " + position);
                 TextView textView = new TextView(MainActivity.this);
                 textView.setText(String.valueOf(position));
                 textView.setTextSize(200);
@@ -73,11 +81,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("raytest", "onPageScrollStateChanged2: " + state);
             }
         });
-        viewPager.postDelayed(new Runnable() {
+        Runnable r = new Runnable() {
             @Override
             public void run() {
-                viewPager.setCurrentItem(100);
+                viewPager.setCurrentItem(i++);
+                viewPager.postDelayed(this, 1500);
             }
-        },3000);
+        };
+        viewPager.postDelayed(r,1500);
+        viewPager.setCurrentItem(-7);
     }
 }

@@ -57,7 +57,8 @@ class PagerAdapterWrapper extends PagerAdapter {
      * @return 是否改变了 circle，true 表示 circle已经变化，否则返回 false
      */
     boolean reCalculateCircle(int position, int innerPosition) {
-        int newCircleCount = (position - innerPosition + INIT_POS) / (PAGE_COUNT - CACHE_SLIDE * 2);
+        int initOffset = position >= 0 ? (PAGE_COUNT - CACHE_SLIDE * 2) / 2 : -(PAGE_COUNT - CACHE_SLIDE * 2) / 2;
+        int newCircleCount = (position + initOffset - innerPosition + INIT_POS) / (PAGE_COUNT - CACHE_SLIDE * 2);
         boolean hasChanged = circleCount != newCircleCount;
         circleCount = newCircleCount;
         return hasChanged;

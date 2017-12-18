@@ -5,6 +5,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
+/**
+ * @author zyl
+ */
 public class NoLimitViewPager extends ViewPager {
 
     private PagerAdapterWrapper mAdapter;
@@ -26,14 +29,16 @@ public class NoLimitViewPager extends ViewPager {
         return mAdapter != null ? mAdapter.getRealPosition(super.getCurrentItem()) : 0;
     }
 
+    @Override
     public void setCurrentItem(int item, boolean smoothScroll) {
         boolean hasCircleChanged = mAdapter.reCalculateCircle(item, super.getCurrentItem());
         int innerPos = mAdapter.getInnerPosition(item);
         int posOffset = innerPos - super.getCurrentItem();
-        if (hasCircleChanged && Math.abs(posOffset) <= getOffscreenPageLimit()) {
-            int p1 = innerPos - Math.abs(posOffset);
-            int p2 = innerPos + Math.abs(posOffset);
-            for (; p1 < p2; p1++) {
+        int offscreenLimit = getOffscreenPageLimit();
+        if (hasCircleChanged && Math.abs(posOffset) <= offscreenLimit) {
+            int p1 = innerPos - Math.abs(offscreenLimit);
+            int p2 = innerPos + Math.abs(offscreenLimit);
+            for (; p1 <= p2; p1++) {
                 mAdapter.dirtyPosition.add(p1);
             }
             mAdapter.notifyDataSetChanged();
@@ -81,7 +86,7 @@ public class NoLimitViewPager extends ViewPager {
         private int mSelectPosition = -1;
 
 
-        public OnPagerChangeListenerWrap(OnPageChangeListener listener) {
+        OnPagerChangeListenerWrap(OnPageChangeListener listener) {
             this.mListener = listener;
         }
 
