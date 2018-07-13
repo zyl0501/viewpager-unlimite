@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = new TextView(MainActivity.this);
                 textView.setText(String.valueOf(position));
                 textView.setTextSize(200);
+                textView.setGravity(Gravity.CENTER);
                 container.addView(textView);
                 return textView;
             }
@@ -89,6 +91,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         viewPager.postDelayed(r,1500);
-        viewPager.setCurrentItem(-7);
+//        viewPager.setCurrentItem(-7);
     }
 }

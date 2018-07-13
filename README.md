@@ -1,6 +1,9 @@
 # 无页数限制的ViewPager。
 ### 注意：不是循环形式
 
+ ![image](https://github.com/zyl0501/viewpager-unlimite/blob/master/pic/3.gif)
+
+
 Step 1. Add it in your root build.gradle at the end of repositories:
 ``` gradle
 allprojects {
